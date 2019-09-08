@@ -11,11 +11,35 @@
 <body>
 
   <div class="canvas" style="border: 1px dashed green">
-    <!-- <svg width="600" height="600" style="border: 1px dashed green">
-      <rect style="border: 1px dashed green" />
 
-    </svg> -->
   </div>
+
+  <!-- The core Firebase JS SDK is always required and must be listed first -->
+  <script src="https://www.gstatic.com/firebasejs/6.6.0/firebase-app.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/6.6.0/firebase-firestore.js"></script>
+
+  <!-- TODO: Add SDKs for Firebase products that you want to use
+     https://firebase.google.com/docs/web/setup#config-web-app -->
+
+  <script>
+    // Your web app's Firebase configuration
+    var firebaseConfig = {
+      apiKey: "AIzaSyD2iTOvNoO45iyCeazlzCmIPWuiHHhcn1c",
+      authDomain: "d3-firebase-anton.firebaseapp.com",
+      databaseURL: "https://d3-firebase-anton.firebaseio.com",
+      projectId: "d3-firebase-anton",
+      storageBucket: "d3-firebase-anton.appspot.com",
+      messagingSenderId: "103580297388",
+      appId: "1:103580297388:web:f6d2d25de94a1956231709"
+    };
+    // Initialize Firebase
+    firebase.initializeApp(firebaseConfig);
+
+    const db = firebase.firestore();
+    // db.settings({ timestampsInSnapshots: true })
+  </script>
+
+
 
   <script src="https://d3js.org/d3.v5.js"></script>
   <script type="text/javascript" src="index.js">
