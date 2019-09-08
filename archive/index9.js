@@ -29,74 +29,6 @@ const xAxisGroup = graph.append('g')
 const yAxisGroup = graph.append('g');
 
 
-
-//scales
-
-const y = d3.scaleLinear()
-  .range([graphHeight, 0])
-
-const x = d3.scaleBand()
-  .range([0, graphWidth])
-  .paddingInner(0.2)
-  .paddingOuter(0.2);
-
-// create the axis
-const xAxis = d3.axisBottom(x);
-const yAxis = d3.axisLeft(y)
-  .ticks(3)
-  .tickFormat(d => d + ' orders');
-
-
-// transform axis text
-
-xAxisGroup.selectAll('text')
-  .attr('transform', 'rotate(-40)')
-  .attr('text-anchor', 'end')
-  .attr('fill', 'red')
-
-
-// update function -> whatever depends on new data
-const update = (data) => {
-  // 1. update scales domains
-  y.domain([0, d3.max(data, d => d.orders)]);
-  x.domain(data.map(item => item.name));
-
-  // 2. join data
-  const rects = graph.selectAll('rect')
-    .data(data);
-
-  // 3. remove exit selection - elements that in dom but not needed
-  rects.exit().remove();
-
-  // 4. update current shapes in DOM
-
-  //existing
-  rects
-    .attr('width', x.bandwidth)
-    .attr('height', d => graphHeight - y(d.orders))
-    .attr('fill', 'orange')
-    .attr('x', (d) => x(d.name))
-    .attr('y', d => y(d.orders))
-
-  //5. append
-  //append 
-  rects
-    .enter()
-    .append('rect')
-    .attr('width', x.bandwidth)
-    .attr('height', d => graphHeight - y(d.orders))
-    .attr('fill', 'orange')
-    .attr('x', (d) => x(d.name))
-    .attr('y', d => y(d.orders));
-
-
-  // call axis
-  xAxisGroup.call(xAxis);
-  yAxisGroup.call(yAxis);
-
-};
-
-
 db
   .collection('dishes')
   .get()
@@ -107,11 +39,11 @@ db
     res.docs.forEach(doc => data.push(doc.data()));
     console.log(data);
 
-    update(data);
 
-    // const y = d3.scaleLinear()
-    //   .domain([0, d3.max(data, d => d.orders)])
-    //   .range([graphHeight, 0])
+
+    const y = d3.scaleLinear()
+      .domain([0, d3.max(data, d => d.orders)])
+      .range([graphHeight, 0])
 
     // const min = d3.min(data, d => d.orders)
     // const max = d3.max(data, d => d.orders)
@@ -125,24 +57,24 @@ db
 
     // console.log(y(400));
     // console.log(y(900));
-    // const x = d3.scaleBand()
-    //   .domain(data.map(item => item.name))
-    //   .range([0, graphWidth])
-    //   .paddingInner(0.2)
-    //   .paddingOuter(0.2);
+    const x = d3.scaleBand()
+      .domain(data.map(item => item.name))
+      .range([0, graphWidth])
+      .paddingInner(0.2)
+      .paddingOuter(0.2);
 
 
     // console.log(x("veg surprise"));
     // console.log(x("veg pasta"));
-    // console.log(x.bandwidth());
+    console.log(x.bandwidth());
 
 
 
-    // Join the data to rect
-    // const rects = graph.selectAll('rect')
-    //   .data(data);
+    // Join the data to react
+    const rects = graph.selectAll('rect')
+      .data(data);
 
-    // console.log(rects);
+    console.log(rects);
 
 
 
