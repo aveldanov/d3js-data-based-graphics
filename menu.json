@@ -9,10 +9,14 @@
   },
   {
     "name": "veg pasta",
-    "orders": 300
+    "orders": 400
   },
   {
     "name": "veg surprise",
     "orders": 900
+  },
+  {
+    "name": "burger",
+    "orders": 1500
   }
 ]
