@@ -3,7 +3,31 @@ const name = document.querySelector('#name'); const cost = document.querySelecto
 const error = document.querySelector('#error');
 
 
-form.addEventListener('submit', (e) => {
+form.addEventListener('submit', async (e) => {
+  e.preventDefault();
 
+  if (name.value && cost.value) {
+    const item = {
+      name: name.value,
+      cost: parseInt(cost.value)
+    }
+
+    // db.collection('expenses').add(item)
+    //   .then(res => {
+    //     name.value = "",
+    //       cost.value = ""
+    //   })
+
+    const res = await db.collection('expenses').add(item);
+    {
+      error.textContent = ""
+      name.value = "",
+        cost.value = ""
+    }
+
+
+  } else {
+    error.textContent = 'Please enter values before submitting';
+  }
 });
 
